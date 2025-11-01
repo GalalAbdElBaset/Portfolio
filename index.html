@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Galal Abdelbaset — Front-End Developer</title>
+
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!-- SweetAlert2 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+<body>
+<!-- PRELOADER -->
+<div id="preloader" role="status" aria-hidden="false">
+    <div class="preloader-logo" aria-hidden="true">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <defs><linearGradient id="g1"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+        <rect x="2" y="2" width="20" height="20" rx="6" stroke="url(#g1)" stroke-width="1.6" fill="none"></rect>
+    </svg>
+    <div>
+        <div style="font-weight:800">Galal Abdelbaset</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Front-End Developer — Loading…</div>
+    </div>
+    </div>
+</div>
+
+<!-- cursor dot -->
+<div id="cursorDot" class="cursor-dot" aria-hidden="true"></div>
+
+<div class="container" id="page">
+    <!-- HEADER -->
+    <header id="siteHeader" aria-label="Main header">
+    <div class="header-inner">
+        <div class="brand">
+        <div class="logo">Galal Abdelbaset</div>
+        <nav id="mainNav" aria-label="Main navigation">
+            <a href="#about"><i class="fa-solid fa-user"></i> About</a>
+            <a href="#experience"><i class="fa-solid fa-briefcase"></i> Work</a>
+            <a href="#skills"><i class="fa-solid fa-gears"></i> Skills</a>
+            <a href="#showcase"><i class="fa-solid fa-grid"></i> Showcase</a>
+            <a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
+        </nav>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px">
+        <button class="cta" onclick="document.querySelector('#contact input, #contact textarea').focus()"><i class="fa-solid fa-paper-plane"></i> Work with me</button>
+        </div>
+    </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="home" data-aos="fade-up" data-aos-duration="900">
+    <div class="hero-card card" id="heroCard">
+        <h1 id="typingLine">Hi, I'm Galal Abdelbaset — Front-End Developer 💻</h1>
+        <p class="muted" id="subline">I’m passionate about creating modern, responsive, and visually engaging web experiences using JavaScript and React.</p>
+
+        <div style="height:12px"></div>
+        <button class="cta" onclick="document.querySelector('#contact input').focus()"><i class="fa-solid fa-briefcase"></i> Hire me</button>
+
+        <div class="meta-chips" aria-hidden="true">
+        <div style="background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;display:flex;gap:8px;align-items:center">
+            <i class="fa-solid fa-circle-check"></i> Available: Freelance
+        </div>
+        <div style="background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;display:flex;gap:8px;align-items:center">
+            <i class="fa-solid fa-location-dot"></i> Location: Assiut / Egypt
+        </div>
+        <div style="background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;display:flex;gap:8px;align-items:center">
+            <i class="fa-solid fa-envelope"></i> <a id="publicEmail" href="mailto:galal@example.com">galalabdelbaset28@gmail.com</a>
+        </div>
+        </div>
+
+        <div style="height:12px"></div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <div style="font-size:13px;color:var(--muted)">Accent:</div>
+        <div style="display:flex;gap:8px">
+            <button class="palette" data-color="#3b82f6" style="width:28px;height:28px;border-radius:8px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);border:0;cursor:pointer" title="Blue"></button>
+            <button class="palette" data-color="#ef4444" style="width:28px;height:28px;border-radius:8px;background:linear-gradient(90deg,#ef4444,#f97316);border:0;cursor:pointer" title="Red"></button>
+            <button class="palette" data-color="#10b981" style="width:28px;height:28px;border-radius:8px;background:linear-gradient(90deg,#10b981,#06b6d4);border:0;cursor:pointer" title="Green"></button>
+        </div>
+        </div>
+    </div>
+
+    <div class="profile" data-aos="zoom-in" data-aos-duration="900">
+        <div class="avatar" id="avatar" role="img" aria-label="Profile image">
+        <!-- USER-SUPPLIED IMAGE -->
+        <img src="https://iili.io/KPPgLCB.jpg" alt="Galal Abdelbaset">
+        </div>
+    </div>
+    </section>
+
+    <!-- ABOUT (with image) -->
+    <section id="about" class="card" data-aos="fade-up" data-aos-duration="800">
+    <div class="section-row">
+        <div>
+        <h2 class="section-title">About</h2>
+        <p class="muted">
+            I’m a passionate Front-End Developer from Assiut, Egypt. I focus on creating responsive, user-friendly web experiences using modern technologies like JavaScript and React.
+        </p>
+        <div style="height:12px"></div>
+        <ul class="muted" style="margin-left:18px">
+            <li>Specialize in JavaScript (ES6+) & React</li>
+            <li>Building responsive UIs and single-page apps</li>
+            <li>Strong interest in performance and accessibility</li>
+        </ul>
+        </div>
+
+        <aside>
+        <div class="section-image" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29kaW5nJTIwc2V0dXB8ZW58MHx8MHx8fDA%3D&ixlib=rb-4.1.0&q=60&w=3000" alt="About image">
+        </div>
+        <div style="height:12px"></div>
+        <div class="card" style="padding:12px">
+            <h3 style="margin-bottom:6px"><i class="fa-solid fa-circle-info"></i> Quick Facts</h3>
+            <div class="muted"><i class="fa-solid fa-location-dot"></i> Location: Assiut /Egypt</div>
+            <div class="muted"><i class="fa-solid fa-envelope"></i> Email: <a href="mailto:galalabdelbaset28@gmail.com">galalabdelbaset28@gmail.com</a></div>
+            <div class="muted"><i class="fa-solid fa-people-roof"></i> Availability: Freelance / Remote</div>
+        </div>
+        </aside>
+    </div>
+    </section>
+
+   <!-- WORK (with image header) -->
+<section id="experience" data-aos="fade-up" data-aos-duration="800">
+    <h2 class="section-title">Work Experience</h2>
+    <div class="section-image" aria-hidden="true" style="height:220px">
+        <img src="https://iili.io/KPpK8qF.md.png" alt="Work image">
+    </div>
+
+    <div class="work-list" style="margin-top:12px">
+
+        <!-- ✅ Experience Based on CV Projects -->
+        <div class="work-item card" data-aos="fade-right" data-aos-duration="700">
+            <h3>Front-End Developer — Projects Experience</h3>
+            <div class="meta">2023 – Present</div>
+            <ul class="muted">
+                <li>Developed multiple responsive web projects using HTML5, CSS3, JavaScript, and SCSS.</li>
+                <li>Built structured UI sections such as landing pages, portfolios, testimonials, and contact forms.</li>
+                <li>Implemented features like live timers, scroll-to-top buttons, form validation, and smooth animations.</li>
+                <li>Used Git & GitHub for version control and managing personal project repositories.</li>
+            </ul>
+        </div>
+
+        <!-- ✅ Student Activities System (From Your CV) -->
+        <div class="work-item card" data-aos="fade-right" data-aos-duration="800">
+            <h3>Student Activities Management System</h3>
+            <div class="meta">2023</div>
+            <ul class="muted">
+                <li>Developed a complete platform for managing student activities with registration and login functionality.</li>
+                <li>Created categorized sections for activities and a responsive UI layout.</li>
+                <li>Technologies used: HTML, CSS, JavaScript.</li>
+            </ul>
+        </div>
+
+        <!-- ✅ Modern Web Design Projects -->
+        <div class="work-item card" data-aos="fade-right" data-aos-duration="850">
+            <h3>Web Design & Landing Pages</h3>
+            <div class="meta">2025</div>
+            <ul class="muted">
+                <li>Designed modern, responsive landing pages for creative agency-style templates.</li>
+                <li>Built interactive features including animations, responsive grids, and clean page structure.</li>
+                <li>Implemented UI components using HTML5, CSS3, and vanilla JavaScript.</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+
+    <!-- EDUCATION (inserted) -->
+    <section id="education" data-aos="fade-up" data-aos-duration="800">
+    <h2 class="section-title">Education</h2>
+    <div class="card" style="margin-top:12px;padding:16px">
+        <h3>Assiut University</h3>
+        <div class="meta">Sep. 2019 – Jan. 2023</div>
+        <p class="muted" style="margin-top:8px">Bachelor's Degree in Computer Science | GPA: 85.3% (Graduated with Excellent Honors)</p>
+    </div>
+    </section>
+
+
+
+    <!-- SKILLS (with illustration image) -->
+    <section id="skills" class="card" data-aos="fade-up" data-aos-duration="800">
+    <h2 class="section-title">Skills & Tools</h2>
+
+    <div class="section-image" aria-hidden="true">
+        <img src="https://iili.io/KiKVmyQ.md.jp">
+    </div>
+
+    <div class="skills" style="margin-top:12px">
+        <div class="skill" data-skill="80" data-aos="fade-up" data-aos-duration="700">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>JavaScript (ES6+)</strong><i class="fa-brands fa-js-square" title="JavaScript"></i>
+        </div>
+        <div class="bar"><i></i></div>
+        <div class="muted">JavaScript (ES6+) · Async · DOM · Modules</div>
+        <div class="icons"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS" width="28"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TS" width="28"></div>
+        </div>
+
+        <div class="skill" data-skill="60" data-aos="fade-up" data-aos-duration="750">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>React</strong><i class="fa-brands fa-react" title="React"></i>
+        </div>
+        <div class="bar"><i></i></div>
+        <div class="muted">Components, Hooks, Router</div>
+        <div class="icons"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" width="28"></div>
+        </div>
+
+        <div class="skill" data-skill="92" data-aos="fade-up" data-aos-duration="800">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>HTML & CSS</strong><i class="fa-brands fa-html5" title="HTML & CSS"></i>
+        </div>
+        <div class="bar"><i></i></div>
+        <div class="muted">HTML · CSS3 · SCSS · Bootstrap · Responsive layouts</div>
+        <div class="icons"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" width="28"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" width="28"></div>
+        </div>
+
+        <div class="skill" data-skill="75" data-aos="fade-up" data-aos-duration="850">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Tools</strong><i class="fa-solid fa-wrench" title="Tools"></i>
+        </div>
+        <div class="muted">Git · GitHub · OOP Concepts</div>
+        </div>
+    </div>
+    </section>
+    <section id="showcase" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title">Showcase Your Best Work</h2>
+
+        <div class="grid" style="margin-top:12px">
+
+            <!-- ✅ Gradife -->
+            <div class="project card" data-aos="flip-left" data-aos-duration="700"
+                data-project='{"title":"Gradife — Student Activities System","desc":"A web system for student activities with registration & categorized sections.","img":"https://iili.io/Ksi74St.md.png","live":"https://galalabdelbaset.github.io/gradife-main/","code":"https://github.com/GalalAbdElBaset/gradife-main.git"}'>
+                <img src="https://iili.io/Ksi74St.md.png" alt="Gradife Project" />
+                <h4>Gradife — Student Activities System</h4>
+                <div class="tags muted">HTML · CSS · JavaScript</div>
+
+                <p class="muted">A web system for student activities including registration & activity sections.</p>
+
+                <div style="display:flex;gap:8px;margin-top:10px">
+                    <a href="https://galalabdelbaset.github.io/gradife-main/" target="_blank" class="cta" style="padding:6px 10px;font-size:13px;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live</a>
+                    <a href="https://github.com/GalalAbdElBaset/gradife-main.git" target="_blank" class="cta" style="padding:6px 10px;font-size:13px;"><i class="fa-solid fa-code"></i> Code</a>
+                </div>
+            </div>
+
+            <!-- ✅ Interactive Portfolio -->
+            <div class="project card" data-aos="flip-left" data-aos-duration="750"
+                data-project='{"title":"Interactive Portfolio","desc":"Personal portfolio with animations and responsive layout.","img":"https://iili.io/KsPpmF9.md.png","live":"#","code":"#"}'>
+                <img src="https://iili.io/KsPpmF9.md.png" alt="Portfolio Project" />
+                <h4>Interactive Portfolio</h4>
+                <div class="tags muted">HTML · CSS · JavaScript</div>
+
+                <p class="muted">A personal portfolio website with smooth UI transitions.</p>
+
+                <div style="display:flex;gap:8px;margin-top:10px">
+                    <a href="#" target="_blank" class="cta" style="padding:6px 10px;font-size:13px;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live</a>
+                    <a href="#" target="_blank" class="cta" style="padding:6px 10px;font-size:13px;"><i class="fa-solid fa-code"></i> Code</a>
+                </div>
+            </div>
+
+            <!-- ✅ Modern Web Template -->
+            <div class="project card" data-aos="flip-left" data-aos-duration="800"
+                data-project='{
+                    "title":"Modern Web Template",
+                    "desc":"A modern, responsive web template featuring animations, clean UI sections, and smooth scrolling.",
+                    "img":"https://iili.io/ModernWebTemplate.jpg",
+                    "live":"https://galalabdelbaset.github.io/ModernWebTemplate/",
+                    "code":"https://github.com/GalalAbdElBaset/ModernWebTemplate"
+                }'>
+
+                <img src="https://iili.io/Ksigle9.md.png" alt="Modern Web Template" />
+                <h4>Modern Web Template</h4>
+                <div class="tags muted">HTML · CSS · JavaScript</div>
+
+                <p class="muted">
+                    A responsive web template with modern layout, animations, and interactive UI components.
+                </p>
+
+                <div style="display:flex;gap:8px;margin-top:10px">
+                    <a href="https://galalabdelbaset.github.io/ModernWebTemplate/" target="_blank"
+                    class="cta" style="padding:6px 10px;font-size:13px;">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Live
+                    </a>
+
+                    <a href="https://github.com/GalalAbdElBaset/ModernWebTemplate" target="_blank"
+                    class="cta" style="padding:6px 10px;font-size:13px;">
+                        <i class="fa-solid fa-code"></i> Code
+                    </a>
+                </div>
+            </div>
+
+            <!-- ✅ Coffee Website -->
+            <div class="project card" data-aos="flip-left" data-aos-duration="850"
+                data-project='{"title":"Coffee Website Page","desc":"A responsive multi-section coffee shop website.","img":"https://iili.io/2QjQzEv.png","live":"https://galalabdelbaset.github.io/CoffeeWebsitPage/","code":"https://github.com/GalalAbdElBaset/CoffeeWebsitPage"}'>
+                <img src="https://iili.io/KsiKyS2.md.png" alt="Coffee Website" />
+                <h4>Coffee Website Page</h4>
+                <div class="tags muted">HTML · CSS · JavaScript</div>
+
+                <p class="muted">A modern coffee shop website with multiple sections and responsive layout.</p>
+
+                <div style="display:flex;gap:8px;margin-top:10px">
+                    <a href="https://galalabdelbaset.github.io/CoffeeWebsitPage/" target="_blank" class="cta" style="padding:6px 10px;font-size:13px;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live</a>
+                    <a href="https://github.com/GalalAbdElBaset/CoffeeWebsitPage" target="_blank" class="cta" style="padding:6px 10px;font-size:13px;"><i class="fa-solid fa-code"></i> Code</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- PROJECT MODAL -->
+    <div id="projectModal" class="modal" aria-hidden="true">
+    <div class="modal-card card" role="dialog" aria-modal="true">
+        <button class="close" onclick="closeProjectModal()" aria-label="Close">✕</button>
+        <div id="modalContent"></div>
+    </div>
+    </div>
+
+    <!-- TESTIMONIALS (with image) -->
+    <section class="card testimonials" data-aos="fade-up" data-aos-duration="800">
+    <h2 class="section-title">What Others Say</h2>
+
+    <div class="section-image" aria-hidden="true" style="height:160px;margin-bottom:12px">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1400&auto=format&fit=crop&s=placeholder" alt="Testimonials image">
+    </div>
+
+    <div class="testi-wrap">
+        <div class="testi-list" id="testiList">
+        <div class="testi">
+            <p class="muted">"Galal created an amazing landing page for our product launch. The design was sleek, and the page performed flawlessly."</p>
+            <div class="who">— Ahmed, Product Manager</div>
+        </div>
+        <div class="testi">
+            <p class="muted">"Delivered a professional portfolio site quickly and communicated clearly throughout."</p>
+            <div class="who">— Sara, Designer</div>
+        </div>
+        <div class="testi">
+            <p class="muted">"Great attention to detail and performance optimisation."</p>
+            <div class="who">— Omar, CTO</div>
+        </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- SERVICES (with images/icons) -->
+    <section data-aos="fade-up" data-aos-duration="800">
+    <h2 class="section-title">Services</h2>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:12px">
+        <div class="service card" data-aos="fade-up" data-aos-duration="700">
+        <div class="section-image" style="height:120px;margin-bottom:10px">
+            <img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1100&q=80" alt="Website dev">
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+            <div class="icon"><i class="fa-solid fa-globe"></i></div>
+            <div>
+            <h4>Website Development</h4>
+            <p class="muted">Static and interactive websites using HTML, CSS & JS.</p>
+            </div>
+        </div>
+        </div>
+
+        <div class="service card" data-aos="fade-up" data-aos-duration="750">
+        <div class="section-image" style="height:120px;margin-bottom:10px">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="UI work">
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+            <div class="icon"><i class="fa-solid fa-map-signs"></i></div>
+            <div>
+            <h4>UI Implementation</h4>
+            <p class="muted">Convert designs to responsive, pixel-perfect pages.</p>
+            </div>
+        </div>
+        </div>
+
+        <div class="service card" data-aos="fade-up" data-aos-duration="800">
+        <div class="section-image" style="height:120px;margin-bottom:10px">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="Performance">
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+            <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+            <div>
+            <h4>Performance & Accessibility</h4>
+            <p class="muted">Improve speed & accessibility for better UX.</p>
+            </div>
+        </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- CONTACT (with image) -->
+    <section id="contact" class="card" data-aos="fade-up" data-aos-duration="800">
+    <h2 class="section-title">Contact</h2>
+    <div class="section-image" aria-hidden="true" style="height:140px;margin-bottom:12px">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&s=placeholder" alt="Contact image">
+    </div>
+
+    <div class="contact-grid">
+        <div>
+        <p class="muted contact-info">If you'd like to work together, send me a message.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin:12px 0">
+            <div class="muted"><i class="fa-solid fa-envelope"></i> Email: <a href="mailto:galal@example.com">galal@example.com</a></div>
+            <div class="muted"><i class="fa-solid fa-location-dot"></i> Location: Cairo, Egypt</div>
+            <div class="muted"><i class="fa-brands fa-github"></i> GitHub: <a href="https://github.com/" target="_blank">github.com/yourname</a></div>
+        </div>
+
+        <form id="contactForm" aria-label="Contact form">
+            <input id="name" name="from_name" type="text" placeholder="Your name" required />
+            <div style="height:8px"></div>
+            <input id="email" name="reply_to" type="email" placeholder="Email" required />
+            <div style="height:8px"></div>
+            <textarea id="message" name="message" rows="4" placeholder="Message" required></textarea>
+            <div style="height:10px"></div>
+            <button class="send" id="sendBtn" type="submit">
+            <span class="sendText"><i class="fa-solid fa-paper-plane"></i> Send Message</span>
+            <svg id="sendSpinner" width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:none;margin-left:8px">
+                <circle cx="12" cy="12" r="8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-dasharray="40" stroke-dashoffset="0"></circle>
+            </svg>
+            </button>
+        </form>
+        </div>
+
+        <aside class="card" style="padding:12px">
+        <h3 style="margin-bottom:8px"><i class="fa-solid fa-file-lines"></i> Quick CV</h3>
+        <div class="muted">Bachelor's in Computer Science — Assiut University</div>
+        <div style="height:8px"></div>
+        <a href="https://drive.google.com/file/d/1mWZ86Es7Lv7lzcf8L5s6k-0JXGK3K2wK/view?usp=sharing" target="_blank" class="cta" ><i class="fa-solid fa-download" ></i> Download Resume</a>
+        </aside>
+    </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+    <div style="display:flex;gap:12px ;">
+        <a href="https://github.com/GalalAbdElBaset" aria-label="GitHub" title="GitHub" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.02)"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/galal-abd-el-baset-galal/" aria-label="LinkedIn" title="LinkedIn" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.02)"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://www.facebook.com/galal.al.arif" aria-label="Facebook" title="Facebook" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.02)">
+            <i class="fa-brands fa-facebook"></i></a>
+    </div>
+    <div> &copy; <span id="year"></span> Galal Abdelbaset — Front-End Developer · Built with HTML · CSS · JS</div>
+    </footer>
+</div>
+
+<!-- Floating theme toggle (unchanged) -->
+<button id="themeFloat" aria-pressed="false" title="Toggle light / dark mode" aria-label="Toggle theme"><i id="themeIcon" class="fa-solid fa-moon"></i></button>
+
+<!-- Back to top -->
+<button id="backToTop" class="back-to-top" style="position:fixed;right:18px;bottom:86px;display:none;border-radius:12px;padding:10px 12px;border:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;box-shadow:var(--shadow);z-index:80"><i class="fa-solid fa-arrow-up"></i> Top</button>
+
+<!-- Modal -->
+<div id="projectModal" class="modal" aria-hidden="true">
+    <div class="modal-card card" role="dialog" aria-modal="true">
+    <button class="close" onclick="closeProjectModal()" aria-label="Close">✕</button>
+    <div id="modalContent"></div>
+    </div>
+</div>
+
+<!-- Dependencies -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+
+<script src="js/main.js">
+</script>
+
+<style>
+    /* small inline spinner animation */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #sendSpinner circle { stroke-dasharray: 40; animation: spin 1s linear infinite; stroke-linecap:round }
+</style>
+</body>
+</html>

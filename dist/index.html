@@ -1,0 +1,1303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Galal Abdelbaset — Front-End Developer</title>
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<!-- SweetAlert2 -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+    /* ===========================
+Variables & Reset (Dark-first)
+=========================== */
+    :root {
+    --accent: #3b82f6;
+    --accent-2: #8b5cf6;
+    --bg-dark: #121212;
+    --surface-dark: #0f1720;
+    --card-dark: rgba(255, 255, 255, 0.03);
+    --muted-dark: #9aa6b2;
+    --text-dark: #e6eef8;
+    --bg-light: #f7f9fb;
+    --surface-light: #ffffff;
+    --muted-light: #65738a;
+    --text-light: #0b1220;
+    --radius: 12px;
+    --maxw: 1100px;
+    --fw-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    --transition: 360ms cubic-bezier(.2, .9, .2, 1);
+    --shadow: 0 12px 30px rgba(2, 6, 23, 0.45);
+    }
+
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+    }
+
+    html,
+    body {
+    height: 100%;
+    font-family: var(--fw-sans);
+    -webkit-font-smoothing: antialiased
+    }
+
+    a {
+    color: var(--accent);
+    text-decoration: none
+    }
+
+    body {
+    --bg: var(--bg-dark);
+    --surface: var(--surface-dark);
+    --card: var(--card-dark);
+    --muted: var(--muted-dark);
+    --text: var(--text-dark);
+    background: linear-gradient(180deg, var(--bg) 0%, #071026 100%);
+    color: var(--text);
+    line-height: 1.45;
+    transition: background var(--transition), color var(--transition);
+    }
+
+    body.light {
+    --bg: var(--bg-light);
+    --surface: var(--surface-light);
+    --card: rgba(11, 18, 32, 0.02);
+    --muted: var(--muted-light);
+    --text: var(--text-light);
+    background: linear-gradient(180deg, var(--bg) 0%, #eaf2fb 100%);
+    }
+
+    .container {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px
+    }
+
+    /* Preloader */
+    #preloader {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, #071028 0%, #07112a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 300ms ease
+    }
+
+    .preloader-logo {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: preIn 900ms forwards
+    }
+
+    @keyframes preIn {
+    to {
+        opacity: 1;
+        transform: none
+    }
+    }
+
+    /* Header */
+    header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    padding: 14px 20px;
+    transition: backdrop-filter var(--transition), background var(--transition), box-shadow var(--transition);
+    }
+
+    .header-inner {
+    width: var(--maxw);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px
+    }
+
+    .brand {
+    display: flex;
+    gap: 12px;
+    align-items: center
+    }
+
+    .logo {
+    font-weight: 800
+    }
+
+    nav {
+    display: flex;
+    gap: 12px;
+    align-items: center
+    }
+
+    nav a {
+    color: var(--muted);
+    font-size: 0.95rem;
+    padding: 8px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 180ms, transform 180ms
+    }
+
+    nav a i {
+    width: 16px;
+    text-align: center
+    }
+
+    nav a:hover {
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text);
+    transform: translateY(-3px)
+    }
+
+    /* Floating theme toggle (unchanged style) */
+    #themeFloat {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 80;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    border: 0;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: white;
+    font-size: 18px;
+    transition: transform 180ms
+    }
+
+    #themeFloat:hover {
+    transform: translateY(-6px) scale(1.02)
+    }
+
+    /* Hero (grid) */
+    .hero {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 28px;
+    align-items: center;
+    margin-top: 100px
+    }
+
+    .hero-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+    padding: 34px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(6px);
+    transition: transform var(--transition)
+    }
+
+    .hero h1 {
+    font-size: clamp(1.6rem, 3.6vw, 2.2rem);
+    margin-bottom: 10px;
+    display: inline-block
+    }
+
+    .hero p {
+    color: var(--muted);
+    margin-bottom: 16px
+    }
+
+    .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: white;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.12);
+    border: none;
+    cursor: pointer
+    }
+
+    .meta-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px
+    }
+
+    .profile {
+    display: flex;
+    align-items: center;
+    justify-content: center
+    }
+
+    .avatar {
+    width: 340px;
+    height: 340px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.04));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: transform 450ms
+    }
+
+    .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 420ms
+    }
+
+    /* Sections layout */
+    section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 22px 0
+    }
+
+    .card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.02)
+    }
+
+    .section-row {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 18px;
+    align-items: start
+    }
+
+    .muted {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 10px 0;
+    }
+
+    /* image block for sections */
+    .section-image {
+    width: 100%;
+    height: 180px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: block;
+    background: #0b1220;
+    }
+
+    .section-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.95);
+    transition: transform 420ms, filter 360ms
+    }
+
+    .section-image:hover img {
+    transform: scale(1.03);
+    filter: brightness(1)
+    }
+
+    /* work list */
+    .work-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px
+    }
+
+    .work-item {
+    padding: 12px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent);
+    border: 1px solid rgba(255, 255, 255, 0.02)
+    }
+
+    .meta {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 6px
+    }
+
+    /* skills */
+    .skills {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px
+    }
+
+    .skill {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent);
+    transition: transform 260ms
+    }
+
+    .skill:hover {
+    transform: translateY(-6px)
+    }
+
+    .bar {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    overflow: hidden
+    }
+
+    .bar>i {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    border-radius: 8px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 900ms cubic-bezier(.2, .9, .2, 1)
+    }
+
+    .icons {
+    display: flex;
+    gap: 8px;
+    align-items: center
+    }
+
+    /* showcase */
+    .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px
+    }
+
+    .project {
+    padding: 12px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    transition: transform 350ms, box-shadow 350ms
+    }
+
+    .project:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(2, 6, 23, 0.6)
+    }
+
+    .project img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px
+    }
+
+    /* testimonials */
+    .testi-wrap {
+    overflow: hidden
+    }
+
+    .testi-list {
+    display: flex;
+    gap: 12px;
+    transition: transform 600ms ease
+    }
+
+    .testi {
+    min-width: 100%;
+    padding: 18px;
+    border-radius: 10px;
+    background: var(--card)
+    }
+
+    /* services */
+    .services {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px
+    }
+
+    .service {
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent)
+    }
+
+    .service .icon {
+    min-width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: white;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2)
+    }
+
+    /* contact */
+    .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 16px;
+    align-items: start
+    }
+
+    input,
+    textarea,
+    button {
+    font-family: inherit
+    }
+
+    input,
+    textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    background: transparent;
+    color: inherit
+    }
+
+    button.send {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 0;
+    color: white;
+    font-weight: 700;
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer
+    }
+
+    /* modal */
+    .modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, rgba(2, 6, 23, 0.6), rgba(2, 6, 23, 0.85));
+    z-index: 9990;
+    padding: 28px
+    }
+
+    .modal .modal-card {
+    background: linear-gradient(180deg, #071028, #0c1224);
+    padding: 18px;
+    border-radius: 12px;
+    max-width: 920px;
+    width: 100%;
+    max-height: 85vh;
+    overflow: auto
+    }
+
+    .modal .close {
+    float: right;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px
+    }
+
+    footer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 20px 0;
+    color: var(--muted);
+    font-size: 0.9rem
+    }
+
+    .cursor-dot {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    mix-blend-mode: screen;
+    transition: transform 90ms linear
+    }
+
+    @keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+    }
+
+    #sendSpinner circle {
+    stroke-dasharray: 40;
+    animation: spin 1s linear infinite;
+    stroke-linecap: round
+    }
+
+    /* responsive */
+    @media (max-width:1100px) {
+    .hero {
+        grid-template-columns: 1fr 320px
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .section-row {
+        grid-template-columns: 1fr
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr
+    }
+    }
+
+    @media (max-width:680px) {
+    nav a {
+        display: none
+    }
+
+    .avatar {
+        width: 260px;
+        height: 260px
+    }
+
+    .grid {
+        grid-template-columns: 1fr
+    }
+
+    .skills {
+        grid-template-columns: 1fr
+    }
+    }
+
+    /* small helper */
+    .hidden {
+    display: none
+    }
+</style>
+</head>
+<body>
+<!-- PRELOADER -->
+<div id="preloader" role="status" aria-hidden="false">
+    <div class="preloader-logo" aria-hidden="true">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <defs>
+        <linearGradient id="g1">
+            <stop offset="0" stop-color="#3b82f6" />
+            <stop offset="1" stop-color="#8b5cf6" />
+        </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="20" height="20" rx="6" stroke="url(#g1)" stroke-width="1.6" fill="none"></rect>
+    </svg>
+    <div>
+        <div style="font-weight:800">Galal Abdelbaset</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Front-End Developer — Loading…</div>
+    </div>
+    </div>
+</div>
+<!-- cursor dot -->
+<div id="cursorDot" class="cursor-dot" aria-hidden="true"></div>
+<div class="container" id="page">
+    <!-- HEADER -->
+    <header id="siteHeader" aria-label="Main header">
+    <div class="header-inner">
+        <div class="brand">
+        <div class="logo">Galal Abdelbaset</div>
+        <nav id="mainNav" aria-label="Main navigation">
+            <a href="#about">
+            <i class="fa-solid fa-user"></i> About </a>
+            <a href="#experience">
+            <i class="fa-solid fa-briefcase"></i> Work </a>
+            <a href="#skills">
+            <i class="fa-solid fa-gears"></i> Skills </a>
+            <a href="#showcase">
+            <i class="fa-solid fa-grid"></i> Showcase </a>
+            <a href="#contact">
+            <i class="fa-solid fa-envelope"></i> Contact </a>
+        </nav>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+        <button class="cta" onclick="document.querySelector('#contact input, #contact textarea').focus()">
+            <i class="fa-solid fa-paper-plane"></i> Work with me </button>
+        </div>
+    </div>
+    </header>
+    <!-- HERO -->
+    <section class="hero" id="home" data-aos="fade-up" data-aos-duration="900">
+    <div class="hero-card card" id="heroCard">
+        <h1 id="typingLine">Hi, I'm Galal Abdelbaset — Front-End Developer 💻</h1>
+        <p class="muted" id="subline">I’m passionate about creating modern, responsive, and visually engaging web experiences using JavaScript and React.</p>
+        <div style="height:12px"></div>
+        <button class="cta" onclick="document.querySelector('#contact input').focus()">
+        <i class="fa-solid fa-briefcase"></i> Hire me </button>
+        <div class="meta-chips" aria-hidden="true">
+        <div style="background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;display:flex;gap:8px;align-items:center">
+            <i class="fa-solid fa-circle-check"></i> Available: Freelance
+        </div>
+        <div style="background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;display:flex;gap:8px;align-items:center">
+            <i class="fa-solid fa-location-dot"></i> Location: Assiut / Egypt
+        </div>
+        <div style="background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;display:flex;gap:8px;align-items:center">
+            <i class="fa-solid fa-envelope"></i>
+            <a id="publicEmail" href="mailto:galal@example.com">galalabdelbaset28@gmail.com</a>
+        </div>
+        </div>
+        <div style="height:12px"></div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <div style="font-size:13px;color:var(--muted)">Accent:</div>
+        <div style="display:flex;gap:8px">
+            <button class="palette" data-color="#3b82f6" style="width:28px;height:28px;border-radius:8px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);border:0;cursor:pointer" title="Blue"></button>
+            <button class="palette" data-color="#ef4444" style="width:28px;height:28px;border-radius:8px;background:linear-gradient(90deg,#ef4444,#f97316);border:0;cursor:pointer" title="Red"></button>
+            <button class="palette" data-color="#10b981" style="width:28px;height:28px;border-radius:8px;background:linear-gradient(90deg,#10b981,#06b6d4);border:0;cursor:pointer" title="Green"></button>
+        </div>
+        </div>
+    </div>
+    <div class="profile" data-aos="zoom-in" data-aos-duration="900">
+        <div class="avatar" id="avatar" role="img" aria-label="Profile image">
+        <!-- USER-SUPPLIED IMAGE -->
+        <img src="https://iili.io/KPPgLCB.jpg" alt="Galal Abdelbaset">
+        </div>
+    </div>
+    </section>
+    <!-- ABOUT (with image) -->
+    <section id="about" class="card" data-aos="fade-up" data-aos-duration="800">
+    <div class="section-row">
+        <div>
+        <h2 class="section-title">About</h2>
+        <p class="muted"> I’m a passionate Front-End Developer from Assiut, Egypt. I focus on creating responsive, user-friendly web experiences using modern technologies like JavaScript and React. </p>
+        <div style="height:12px"></div>
+        <ul class="muted" style="margin-left:18px">
+            <li>Specialize in JavaScript (ES6+) & React</li>
+            <li>Building responsive UIs and single-page apps</li>
+            <li>Strong interest in performance and accessibility</li>
+        </ul>
+        </div>
+        <aside>
+        <div class="section-image" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29kaW5nJTIwc2V0dXB8ZW58MHx8MHx8fDA%3D&ixlib=rb-4.1.0&q=60&w=3000" alt="About image">
+        </div>
+        <div style="height:12px"></div>
+        <div class="card" style="padding:12px">
+            <h3 style="margin-bottom:6px">
+            <i class="fa-solid fa-circle-info"></i> Quick Facts
+            </h3>
+            <div class="muted">
+            <i class="fa-solid fa-location-dot"></i> Location: Assiut /Egypt
+            </div>
+            <div class="muted">
+            <i class="fa-solid fa-envelope"></i> Email: <a href="mailto:galalabdelbaset28@gmail.com">galalabdelbaset28@gmail.com</a>
+            </div>
+            <div class="muted">
+            <i class="fa-solid fa-people-roof"></i> Availability: Freelance / Remote
+            </div>
+        </div>
+        </aside>
+    </div>
+    </section>
+    <!-- WORK (with image header) -->
+    <section id="experience" data-aos="fade-up" data-aos-duration="800">
+    <h2 class="section-title">Work Experience</h2>
+    <div class="section-image" aria-hidden="true" style="height:220px">
+        <img src="https://iili.io/KPpK8qF.md.png" alt="Work image">
+    </div>
+    <div class="work-list" style="margin-top:12px">
+        <div class="work-item card" data-aos="fade-right" data-aos-duration="700">
+        <h3>Freelance Front-End Developer</h3>
+        <div class="meta">2023 – Present</div>
+        <ul class="muted">
+            <li>Designed and developed responsive websites using HTML, CSS, JavaScript, and React.</li>
+            <li>Collaborated with clients to create interactive user interfaces.</li>
+        </ul>
+        </div>
+        <div class="work-item card" data-aos="fade-right" data-aos-duration="800">
+        <h3>Front-End Intern — Example Company</h3>
+        <div class="meta">July 2024 – Sep 2024</div>
+        <ul class="muted">
+            <li>Implemented UI features and collaborated with backend team to consume APIs.</li>
+            <li>Worked on cross-browser compatibility and responsive layouts.</li>
+        </ul>
+        </div>
+    </div>
+    </section>
+    <!-- SKILLS (with illustration image) -->
+    <section id="skills" class="card" data-aos="fade-up" data-aos-duration="800">
+    <h2 class="section-title">Skills & Tools</h2>
+    <div class="section-image" aria-hidden="true">
+        <img src="https://iili.io/KiKVmyQ.md.jp">
+    </div>
+    <div class="skills" style="margin-top:12px">
+        <div class="skill" data-skill="80" data-aos="fade-up" data-aos-duration="700">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>JavaScript (ES6+)</strong>
+            <i class="fa-brands fa-js-square" title="JavaScript"></i>
+        </div>
+        <div class="bar">
+            <i></i>
+        </div>
+        <div class="muted">Async, Fetch API, DOM, Modules</div>
+        <div class="icons">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS" width="28">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TS" width="28">
+        </div>
+        </div>
+        <div class="skill" data-skill="60" data-aos="fade-up" data-aos-duration="750">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>React</strong>
+            <i class="fa-brands fa-react" title="React"></i>
+        </div>
+        <div class="bar">
+            <i></i>
+        </div>
+        <div class="muted">Components, Hooks, Router</div>
+        <div class="icons">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" width="28">
+        </div>
+        </div>
+        <div class="skill" data-skill="92" data-aos="fade-up" data-aos-duration="800">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>HTML & CSS</strong>
+            <i class="fa-brands fa-html5" title="HTML & CSS"></i>
+        </div>
+        <div class="bar">
+            <i></i>
+        </div>
+        <div class="muted">Responsive layouts, Flexbox, Grid</div>
+        <div class="icons">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" width="28">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" width="28">
+        </div>
+        </div>
+        <div class="skill" data-skill="75" data-aos="fade-up" data-aos-duration="850">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Tools</strong>
+            <i class="fa-solid fa-wrench" title="Tools"></i>
+        </div>
+        <div class="muted">Git, GitHub</div>
+        </div>
+    </div>
+    </section>
+    <!-- SHOWCASE (grid with images) -->
+    <section id="showcase" data-aos="fade-up" data-aos-duration="800">
+    <h2 class="section-title">Showcase</h2>
+    <div class="grid" style="margin-top:12px">
+        <div class="project card" data-aos="flip-left" data-aos-duration="700" data-project='{"title":"Gradife — Student Activities System","desc":"A university activities management platform. Home & Registration pages built with responsive layouts.","img":"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&s=placeholder","live":"#","code":"#"}'>
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&s=placeholder" alt="Project 1">
+        <h4>Gradife — Student Activities System</h4>
+        <div class="tags muted">React · JavaScript · HTML</div>
+        <p class="muted" style="margin-top:8px">A university activities management platform. I designed & developed the Home and Registration pages, focusing on responsive layouts and smooth UX. <a href="#">Live</a> · <a href="#">Code</a>
+        </p>
+        </div>
+        <div class="project card" data-aos="flip-left" data-aos-duration="750" data-project='{"title":"Interactive Portfolio","desc":"Personal portfolio with smooth animations and responsive layout.","img":"https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop&s=placeholder","live":"#","code":"#"}'>
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop&s=placeholder" alt="Project 2">
+        <h4>Interactive Portfolio</h4>
+        <div class="tags muted">HTML · CSS · JS</div>
+        <p class="muted" style="margin-top:8px">A personal portfolio with smooth animations and responsive layout.</p>
+        </div>
+        <div class="project card" data-aos="flip-left" data-aos-duration="800" data-project='{"title":"Todo App (React)","desc":"A small interactive todo with localStorage.","img":"https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1400&auto=format&fit=crop&s=placeholder","live":"#","code":"#"}'>
+        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1400&auto=format&fit=crop&s=placeholder" alt="Project 3">
+        <h4>Todo App (React)</h4>
+        <div class="tags muted">React · LocalStorage</div>
+        <p class="muted" style="margin-top:8px">A small interactive todo with localStorage.</p>
+        </div>
+    </div>
+    </section>
+    <!-- PROJECT MODAL -->
+    <div id="projectModal" class="modal" aria-hidden="true">
+    <div class="modal-card card" role="dialog" aria-modal="true">
+        <button class="close" onclick="closeProjectModal()" aria-label="Close">✕</button>
+        <div id="modalContent"></div>
+    </div>
+    </div>
+    <!-- TESTIMONIALS (with image) -->
+    <section class="card testimonials" data-aos="fade-up" data-aos-duration="800">
+    <h2 class="section-title">What Others Say</h2>
+    <div class="section-image" aria-hidden="true" style="height:160px;margin-bottom:12px">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1400&auto=format&fit=crop&s=placeholder" alt="Testimonials image">
+    </div>
+    <div class="testi-wrap">
+        <div class="testi-list" id="testiList">
+        <div class="testi">
+            <p class="muted">"Galal created an amazing landing page for our product launch. The design was sleek, and the page performed flawlessly."</p>
+            <div class="who">— Ahmed, Product Manager</div>
+        </div>
+        <div class="testi">
+            <p class="muted">"Delivered a professional portfolio site quickly and communicated clearly throughout."</p>
+            <div class="who">— Sara, Designer</div>
+        </div>
+        <div class="testi">
+            <p class="muted">"Great attention to detail and performance optimisation."</p>
+            <div class="who">— Omar, CTO</div>
+        </div>
+        </div>
+    </div>
+    </section>
+    <!-- SERVICES (with images/icons) -->
+    <section data-aos="fade-up" data-aos-duration="800">
+    <h2 class="section-title">Services</h2>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:12px">
+        <div class="service card" data-aos="fade-up" data-aos-duration="700">
+        <div class="section-image" style="height:120px;margin-bottom:10px">
+            <img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1100&q=80" alt="Website dev">
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+            <div class="icon">
+            <i class="fa-solid fa-globe"></i>
+            </div>
+            <div>
+            <h4>Website Development</h4>
+            <p class="muted">Static and interactive websites using HTML, CSS & JS.</p>
+            </div>
+        </div>
+        </div>
+        <div class="service card" data-aos="fade-up" data-aos-duration="750">
+        <div class="section-image" style="height:120px;margin-bottom:10px">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="UI work">
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+            <div class="icon">
+            <i class="fa-solid fa-map-signs"></i>
+            </div>
+            <div>
+            <h4>UI Implementation</h4>
+            <p class="muted">Convert designs to responsive, pixel-perfect pages.</p>
+            </div>
+        </div>
+        </div>
+        <div class="service card" data-aos="fade-up" data-aos-duration="800">
+        <div class="section-image" style="height:120px;margin-bottom:10px">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="Performance">
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+            <div class="icon">
+            <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div>
+            <h4>Performance & Accessibility</h4>
+            <p class="muted">Improve speed & accessibility for better UX.</p>
+            </div>
+        </div>
+        </div>
+    </div>
+    </section>
+    <!-- CONTACT (with image) -->
+    <section id="contact" class="card" data-aos="fade-up" data-aos-duration="800">
+    <h2 class="section-title">Contact</h2>
+    <div class="section-image" aria-hidden="true" style="height:140px;margin-bottom:12px">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&s=placeholder" alt="Contact image">
+    </div>
+    <div class="contact-grid">
+        <div>
+        <p class="muted contact-info">If you'd like to work together, send me a message.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin:12px 0">
+            <div class="muted">
+            <i class="fa-solid fa-envelope"></i> Email: <a href="mailto:galalabdelbaset28@gmail.com">galalabdelbaset28@gmail.com</a>
+            </div>
+            <div class="muted">
+            <i class="fa-solid fa-location-dot"></i> Location: Assiut, Egypt
+            </div>
+            <div class="muted">
+            <i class="fa-brands fa-github"></i> GitHub: <a href="https://github.com/" target="_blank">github.com/yourname</a>
+            </div>
+        </div>
+        <form id="contactForm" aria-label="Contact form">
+            <input id="name" name="from_name" type="text" placeholder="Your name" required />
+            <div style="height:8px"></div>
+            <input id="email" name="reply_to" type="email" placeholder="Email" required />
+            <div style="height:8px"></div>
+            <textarea id="message" name="message" rows="4" placeholder="Message" required></textarea>
+            <div style="height:10px"></div>
+            <button class="send" id="sendBtn" type="submit">
+            <span class="sendText">
+                <i class="fa-solid fa-paper-plane"></i> Send Message </span>
+            <svg id="sendSpinner" width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:none;margin-left:8px">
+                <circle cx="12" cy="12" r="8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-dasharray="40" stroke-dashoffset="0"></circle>
+            </svg>
+            </button>
+        </form>
+        </div>
+        <aside class="card" style="padding:12px">
+        <h3 style="margin-bottom:8px">
+            <i class="fa-solid fa-file-lines"></i> Quick CV
+        </h3>
+        <div class="muted">Bachelor's in Computer Science — Assiut University</div>
+        <div style="height:8px"></div>
+        <a href="https://drive.google.com/file/d/1mWZ86Es7Lv7lzcf8L5s6k-0JXGK3K2wK/view?usp=sharing" target="_blank" class="cta">
+            <i class="fa-solid fa-download"></i> Download Resume </a>
+        </aside>
+    </div>
+    </section>
+    <!-- FOOTER -->
+    <footer>
+    <div style="display:flex;gap:12px">
+        <a href="#" aria-label="GitHub" title="GitHub" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.02)">
+        <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="#" aria-label="LinkedIn" title="LinkedIn" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.02)">
+        <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="#" aria-label="Twitter" title="Twitter" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.02)">
+        <i class="fa-brands fa-x-twitter"></i>
+        </a>
+    </div>
+    <div>© <span id="year"></span> Galal Abdelbaset — Front-End Developer · Built with HTML · CSS · JS </div>
+    </footer>
+</div>
+<!-- Floating theme toggle (unchanged) -->
+<button id="themeFloat" aria-pressed="false" title="Toggle light / dark mode" aria-label="Toggle theme">
+    <i id="themeIcon" class="fa-solid fa-moon"></i>
+</button>
+<!-- Back to top -->
+<button id="backToTop" class="back-to-top" style="position:fixed;right:18px;bottom:86px;display:none;border-radius:12px;padding:10px 12px;border:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;box-shadow:var(--shadow);z-index:80">
+    <i class="fa-solid fa-arrow-up"></i> Top </button>
+<!-- Modal -->
+<div id="projectModal" class="modal" aria-hidden="true">
+    <div class="modal-card card" role="dialog" aria-modal="true">
+    <button class="close" onclick="closeProjectModal()" aria-label="Close">✕</button>
+    <div id="modalContent"></div>
+    </div>
+</div>
+<!-- Dependencies -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+<script>
+    /***********************************************
+    * Init & helpers
+    ***********************************************/
+    document.getElementById('year').textContent = new Date().getFullYear();
+    AOS.init({
+    once: true,
+    easing: 'ease-out-cubic',
+    duration: 700
+    });
+    // remove preloader
+    window.addEventListener('load', () => {
+    setTimeout(() => {
+        const pre = document.getElementById('preloader');
+        if (pre) pre.style.opacity = '0';
+        setTimeout(() => pre && pre.remove(), 600);
+    }, 700);
+    });
+    // Typing effect
+    (function typing() {
+    const el = document.getElementById('typingLine');
+    const texts = ["Hi, I'm Galal Abdelbaset — Front-End Developer 💻", "I build modern, fast & accessible web experiences.", "JavaScript · React · Performance"];
+    let idx = 0,
+        char = 0,
+        forward = true;
+
+    function step() {
+        const t = texts[idx];
+        el.textContent = t.slice(0, char);
+        if (forward) {
+        char++;
+        if (char > t.length) {
+            forward = false;
+            setTimeout(step, 1200);
+            return
+        }
+        } else {
+        char--;
+        if (char === 0) {
+            forward = true;
+            idx = (idx + 1) % texts.length
+        }
+        }
+        setTimeout(step, forward ? 60 : 24);
+    }
+    step();
+    })();
+    /***********************************************
+    * Theme toggle (floating) + save in localStorage
+    ***********************************************/
+    const themeFloat = document.getElementById('themeFloat');
+    const themeIcon = document.getElementById('themeIcon');
+    const bodyEl = document.body;
+    const saved = localStorage.getItem('site-theme');
+    if (saved === 'light') {
+    bodyEl.classList.add('light');
+    themeIcon.className = 'fa-solid fa-sun';
+    themeFloat.setAttribute('aria-pressed', 'true');
+    }
+    updateThemeFloat();
+    themeFloat.addEventListener('click', () => {
+    bodyEl.classList.toggle('light');
+    const isLight = bodyEl.classList.contains('light');
+    localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
+    updateThemeFloat();
+    bodyEl.style.transition = 'background 450ms ease, color 450ms ease';
+    });
+
+    function updateThemeFloat() {
+    const isLight = bodyEl.classList.contains('light');
+    themeIcon.className = isLight ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    themeFloat.title = isLight ? 'Switch to dark mode' : 'Switch to light mode';
+    themeFloat.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+    }
+    // Accent buttons
+    document.querySelectorAll('.palette').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const c = btn.dataset.color;
+        document.documentElement.style.setProperty('--accent', c);
+        if (c === '#ef4444') document.documentElement.style.setProperty('--accent-2', '#f97316');
+        else if (c === '#10b981') document.documentElement.style.setProperty('--accent-2', '#06b6d4');
+        else document.documentElement.style.setProperty('--accent-2', '#8b5cf6');
+    });
+    });
+    /***********************************************
+    * Header scroll behavior & back-to-top
+    ***********************************************/
+    const header = document.getElementById('siteHeader');
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y > 20) {
+        header.style.backdropFilter = 'blur(6px)';
+        header.style.background = 'rgba(2,6,23,0.55)';
+        header.style.boxShadow = '0 8px 30px rgba(2,6,23,0.35)';
+    } else {
+        header.style.backdropFilter = 'none';
+        header.style.background = 'transparent';
+        header.style.boxShadow = 'none';
+    }
+    backToTop.style.display = (y > 600) ? 'block' : 'none';
+    });
+    backToTop.addEventListener('click', () => window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+    }));
+    /***********************************************
+    * Avatar parallax
+    ***********************************************/
+    const avatar = document.getElementById('avatar');
+    if (avatar) {
+    avatar.addEventListener('mousemove', (e) => {
+        const r = avatar.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const dx = (e.clientX - cx) / r.width;
+        const dy = (e.clientY - cy) / r.height;
+        avatar.style.transform = `translate3d(${dx*8}px, ${dy*8}px, 0) rotateX(${dy*6}deg) rotateY(${dx*6}deg)`;
+        const img = avatar.querySelector('img');
+        if (img) img.style.transform = `scale(1.07) translate3d(${dx*6}px, ${dy*6}px, 0)`;
+    });
+    avatar.addEventListener('mouseleave', () => {
+        avatar.style.transform = '';
+        const img = avatar.querySelector('img');
+        if (img) img.style.transform = '';
+    });
+    }
+    /***********************************************
+    * Skills animate with IntersectionObserver
+    ***********************************************/
+    const skills = document.querySelectorAll('.skill');
+    const skillsObs = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+        if (en.isIntersecting) {
+        const el = en.target;
+        const val = +el.dataset.skill || 70;
+        const bar = el.querySelector('.bar > i');
+        bar.style.transform = 'scaleX(' + (val / 100) + ')';
+        }
+    });
+    }, {
+    threshold: 0.3
+    });
+    skills.forEach(s => skillsObs.observe(s));
+    /***********************************************
+    * Testimonials slider
+    ***********************************************/
+    (function testiSlider() {
+    const list = document.getElementById('testiList');
+    if (!list) return;
+    let idx = 0;
+    const items = list.children;
+    const total = items.length;
+    list.style.width = (100 * total) + '%';
+    Array.from(items).forEach(it => it.style.width = (100 / total) + '%');
+    setInterval(() => {
+        idx = (idx + 1) % total;
+        list.style.transform = 'translateX(' + (-idx * 100) + '%)';
+    }, 5000);
+    })();
+    /***********************************************
+    * Project modal
+    ***********************************************/
+    function openProjectModal(e, btn) {
+    const projectCard = btn.closest('.project');
+    const data = JSON.parse(projectCard.getAttribute('data-project') || '{}');
+    const modal = document.getElementById('projectModal');
+    const content = document.getElementById('modalContent');
+    content.innerHTML = `
+    
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:18px">
+    <div>
+    <img src="${data.img}" alt="${data.title}" style="width:100%;height:240px;object-fit:cover;border-radius:10px;margin-bottom:10px">
+                                                                                            <h3>${data.title}</h3>
+                                                                                            <p class="muted">${data.desc}</p>
+                                                                                            <div style="height:10px"></div>
+                                                                                            <a href="${data.live}" target="_blank" class="btn-mini">
+                                                                                                <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live
+                                                                                            </a>
+                                                                                            <a href="${data.code}" target="_blank" class="btn-mini" style="margin-left:8px">
+                                                                                                <i class="fa-solid fa-code"></i> View Code
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div style="padding:8px">
+                                                                                            <h4>Details</h4>
+                                                                                            <p class="muted">Technologies: HTML · CSS · JS</p>
+                                                                                            <p class="muted">Role: Front-end</p>
+                                                                                            <p class="muted">Year: 2025</p>
+                                                                                        </div>
+                                                                                    </div>
+`;
+    modal.style.display = 'flex';
+    setTimeout(() => modal.style.opacity = '1', 20);
+    }
+
+    function closeProjectModal() {
+    const modal = document.getElementById('projectModal');
+    modal.style.opacity = '0';
+    setTimeout(() => modal.style.display = 'none', 220);
+    }
+    document.getElementById('projectModal').addEventListener('click', (e) => {
+    if (e.target.id === 'projectModal') closeProjectModal();
+    });
+    /***********************************************
+    * Cursor trail
+    ***********************************************/
+    const cursorDot = document.getElementById('cursorDot');
+    window.addEventListener('mousemove', (e) => {
+    cursorDot.style.left = (e.clientX - 8) + 'px';
+    cursorDot.style.top = (e.clientY - 8) + 'px';
+    cursorDot.style.width = '16px';
+    cursorDot.style.height = '16px';
+    cursorDot.style.borderRadius = '50%';
+    cursorDot.style.background = 'linear-gradient(90deg,var(--accent),var(--accent-2))';
+    cursorDot.style.boxShadow = '0 8px 30px rgba(59,130,246,0.12)';
+    cursorDot.style.transform = 'translateZ(0) scale(1)';
+    });
+    window.addEventListener('mouseleave', () => {
+    cursorDot.style.transform = 'scale(0.2)';
+    cursorDot.style.opacity = '0.6';
+    });
+    /***********************************************
+    * EmailJS (placeholder) + SweetAlert2
+    ***********************************************/
+    (function emailJsSetup() {
+    // Replace these with your EmailJS details:
+    const EMAILJS_SERVICE_ID = "service_t7iw30t";
+    const EMAILJS_TEMPLATE_ID = "template_a9xdpk9";
+    const EMAILJS_PUBLIC_KEY = "WynlS30VWiIW1B0sN";
+
+    if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+    } else {
+        console.warn('EmailJS not initialized — replace placeholders to enable sending.');
+    }
+    const form = document.getElementById('contactForm');
+    const sendBtn = document.getElementById('sendBtn');
+    const sendSpinner = document.getElementById('sendSpinner');
+    const sendText = sendBtn.querySelector('.sendText');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        sendBtn.classList.add('loading');
+        sendText.textContent = 'Sending...';
+        sendSpinner.style.display = 'inline-block';
+        sendBtn.disabled = true;
+        const templateParams = {
+        from_name: document.getElementById('name').value,
+        reply_to: document.getElementById('email').value,
+        message: document.getElementById('message').value
+        };
+        if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams).then(function(response) {
+            sendBtn.classList.remove('loading');
+            sendText.innerHTML = ' < i class = "fa-solid fa-paper-plane" >< /i> Send Message';
+            sendSpinner.style.display = 'none';
+            sendBtn.disabled = false;
+            form.reset();
+            Swal.fire({
+            title: 'Thank you! ',
+            html: `Thank you for your message. I’ll get back to you as soon as possible `,
+            icon: 'success',
+            confirmButtonColor: getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#3b82f6'
+            });
+        }, function(error) {
+            sendBtn.classList.remove('loading');
+            sendText.innerHTML = ' < i class = "fa-solid fa-paper-plane" >< /i> Send Message';
+            sendSpinner.style.display = 'none';
+            sendBtn.disabled = false;
+            console.error('EmailJS Error:', error);
+            Swal.fire({
+            title: 'Oops...',
+            text: 'Something went wrong while sending the message. Please try again later or email me directly.',
+            icon: 'error'
+            });
+        });
+        } else {
+        sendBtn.classList.remove('loading');
+        sendText.innerHTML = ' < i class = "fa-solid fa-paper-plane" >< /i> Send Message';
+        sendSpinner.style.display = 'none';
+        sendBtn.disabled = false;
+        Swal.fire({
+            title: 'Not configured',
+            html: `Email isn't configured yet. Replace EmailJS placeholders in the script with SERVICE_ID, TEMPLATE_ID and PUBLIC_KEY.`,
+            icon: 'info'
+        });
+        }
+    });
+    })();
+    /***********************************************
+    * Accessibility: focus outlines for keyboard users
+    ***********************************************/
+    document.addEventListener('keyup', (e) => {
+    if (e.key === 'Tab') document.body.classList.add('show-focus-outlines');
+    });
+</script>
+<style>
+    /* small inline spinner animation */
+    @keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+    }
+
+    #sendSpinner circle {
+    stroke-dasharray: 40;
+    animation: spin 1s linear infinite;
+    stroke-linecap: round
+    }
+</style>
+</body>
+</html>
